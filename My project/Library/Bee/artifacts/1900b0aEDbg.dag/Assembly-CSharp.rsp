@@ -109,6 +109,7 @@
 -define:ENABLE_TERRAIN
 -define:ENABLE_TILEMAP
 -define:ENABLE_TIMELINE
+-define:ENABLE_INPUT_SYSTEM
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
 -define:UNITY_PIPELINE_URP
@@ -342,6 +343,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.EditorCoroutines.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.FilmInternalUtilities.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.FilmInternalUtilities.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.InputSystem.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Mathematics.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Mathematics.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Performance.Profile-Analyzer.Editor.ref.dll"
@@ -382,6 +384,18 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.SpatialTracking.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.XR.LegacyInputHelpers.ref.dll"
+"Assets/02.Script/Character/BaseCharacter.cs"
+"Assets/02.Script/Character/Character.cs"
+"Assets/02.Script/Data/BaseCharacterData.cs"
+"Assets/02.Script/Interface/IState.cs"
+"Assets/02.Script/Maanager/Game.cs"
+"Assets/02.Script/Maanager/StateManager.cs"
+"Assets/02.Script/State/CharacterIdleState.cs"
+"Assets/02.Script/State/CharacterWalkingState.cs"
+"Assets/02.Script/State/GamePausedState.cs"
+"Assets/02.Script/State/GameStartState.cs"
+"Assets/02.Script/Utill/Entity.cs"
+"Assets/02.Script/Utill/Utill_Eum.cs"
 "Assets/99.ETC/Scripts/SimpleCameraController.cs"
 "Assets/99.ETC/TutorialInfo/Scripts/Readme.cs"
 "Assets/Suriyun/Scripts/AnimatorController.cs"
