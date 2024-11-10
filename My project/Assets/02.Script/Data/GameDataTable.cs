@@ -9,7 +9,7 @@ public class GameDataTable
 
 
     // Static
-    public Dictionary<int, BaseCharacterData> CharacterDic;
+    public Dictionary<int, BaseCharacterData> CharacterDic; //NPC들의 데이터
  
 
 

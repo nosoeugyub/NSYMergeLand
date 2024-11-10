@@ -48,6 +48,15 @@ public class DataManager : MonoBehaviour
         GameDataTable.Instance.UserData = CSVReader.Read_Userdata(TagLayerString.UserData);//유저데이터
         GameDataTable.Instance.UserCharacterDIc = CSVReader.Read_UserBaseCharacte_data(TagLayerString.UserDataLoadCharacter); //유저가흭득한 NPC
 
+
+
+
+
+
+
+
+
+
         if (GameDataTable.Instance.UserData.Level == -1)//새게임 로직
         {
 
