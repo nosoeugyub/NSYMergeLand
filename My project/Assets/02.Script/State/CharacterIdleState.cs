@@ -2,20 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterIdleState : IState<Character>
+public class CharacterIdleState : IState<BaseCharacter>
 {
-    public void Enter(Character context)
+    private BaseCharacter character;
+
+    // BaseCharacter를 매개변수로 받는 생성자
+    public CharacterIdleState(BaseCharacter character)
     {
-        context.CharacterIdleEnter();
+        this.character = character;
     }
 
-    public void Excute(Character context)
+    public void Enter(BaseCharacter context)
     {
-        context.CharacterIdleExcute();
+        Debug.Log("아이들 시작");
     }
 
-    public void Exit(Character Context)
+    public void Excute(BaseCharacter context)
     {
-        Context.CharacterIdleExit();
+        Debug.Log("아이들 나감");
+    }
+
+
+    public void Exit(BaseCharacter context)
+    {
+        Debug.Log("아이들 중");
     }
 }
