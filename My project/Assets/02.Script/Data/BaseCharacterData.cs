@@ -122,14 +122,24 @@ public class BaseCharacterData
         return data;
     }
 
-    internal static void Add_NPCData(Dictionary<int, BaseCharacterData> UserCharacterDIc , int Character_id)//원하는 npc를 추가
+    internal static BaseCharacterData Add_NPCData(Dictionary<int, BaseCharacterData> UserCharacterDIc, int Character_id)//원하는 npc를 추가
     {
-        //Character_id 아이디로 데이터찾기 
         BaseCharacterData data = Find_CharacterData(GameDataTable.Instance.CharacterDic, Character_id);
-        UserCharacterDIc.Add(data.Id , data);
-    }
 
-    internal static void RandomAdd_NPCData(Dictionary<int, BaseCharacterData> UserCharacterDIc)//랜덤으로 추가
+        if (!UserCharacterDIc.ContainsKey(data.Id))
+        {
+            UserCharacterDIc.Add(data.Id, data);
+        }
+        else
+        {
+            Debug.LogError("없는데이터 ID" + Character_id);
+            return null;
+        }
+        return data;
+    }
+    
+
+    public static void RandomAdd_NPCData(Dictionary<int, BaseCharacterData> UserCharacterDIc)//랜덤으로 추가
     {
         // 기존 UserCharacterDIc 딕셔너리에 중복이 없는 키값을 랜덤으로 찾아 더해주기
         // 딕셔너리의 모든 키를 리스트로 변환

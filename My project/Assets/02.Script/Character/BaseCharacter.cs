@@ -13,6 +13,11 @@ public abstract class BaseCharacter: MonoBehaviour
         charaterdata = _Charaterdata;
     }
 
+    public virtual void Init_Charaterdata(BaseCharacterData _Charaterdata)
+    {
+        charaterdata = _Charaterdata;
+    }
+
     BaseCharacterData charaterdata;
     public BaseCharacterData Charaterdata
     {
@@ -42,19 +47,16 @@ public abstract class BaseCharacter: MonoBehaviour
         }
     }
 
-    public virtual void Initialize(BaseCharacterData _CharacterData)
+    public virtual void Create_Initialize(BaseCharacterData _CharacterData)
     {
         charaterdata = _CharacterData;
     }
 
+
+
     public virtual void UpdateNeeds()
     {
-        if (!IsActivaityInProgress)
-        {
-            RandomlyAdjustNeeds();
-            CheckAndChargeState();
-        }
-       
+        RandomlyAdjustNeeds();
     }
 
     private void RandomlyAdjustNeeds()
@@ -67,18 +69,57 @@ public abstract class BaseCharacter: MonoBehaviour
         // 기타 욕구들도 추가 가능
     }
 
-    public virtual void CheckAndChargeState(){ }//상태 변경 체크 메서드
+
+    //상태 변경 체크 메서드
+    public virtual void CheckAndChargeState()
+    {
+        // 현재 상태를 가져와야만 이전 상태에서 작업이 완료된 후 새 상태로 변경할 수 있습니다.
+        Utill_Eum.CharacterState state = BaseCharacterData.Get_NPCState(Charaterdata);
+        switch (state)
+        {
+            case Utill_Eum.CharacterState.None:
+                stateManager.ChangeState(new CharacterIdleState(this), this);  // 상태 변경
+                break;
+            case Utill_Eum.CharacterState.HurgryRage:
+                stateManager.ChangeState(new CharacterHurgryState(this), this);  // 상태 변경
+                break;
+            case Utill_Eum.CharacterState.BoringRange:
+                stateManager.ChangeState(new CharacterBoringState(this), this);  // 상태 변경
+                break;
+            case Utill_Eum.CharacterState.WalkingRange:
+                stateManager.ChangeState(new CharacterWalkingState(this), this);  // 상태 변경
+                break;
+            case Utill_Eum.CharacterState.DefalutRage:
+                stateManager.ChangeState(new CharacterIdleState(this), this);  // 상태 변경
+                break;
+        }
+    }
+
+    public void StartSate()
+    {
+        stateManager.Enter(this);
+    }
 
     public void Update()
     {
-        UpdateNeeds();
-        stateManager.Update(this);
+        if (IsActivaityInProgress = true && Charaterdata != null)
+        {
+            UpdateNeeds();
+            CheckAndChargeState(); // 상태 전환이 필요한지 검사 후 호출
+            stateManager.Update(this);
+        }
     }
 
 
-    public void Init_CharacterData(BaseCharacterData data)
+    public void Init_CharacterData(BaseCharacterData Charaterdata)//Enter에서 주롯 사용
     {
-        BaseCharacterData.Init_CharacterData(data);
-        IsActivaityInProgress = false;
+        BaseCharacterData.Init_CharacterData(Charaterdata);
+        IsActivaityInProgress = true;
     }
+
+    public void Exit_CharacterData(BaseCharacterData Charaterdata)//Enter에서 주롯 사용
+    {
+        IsActivaityInProgress = true;
+    }
+
 }

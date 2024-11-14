@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ButtonEvntManager : MonoBehaviour
 {
-    public void AddNPC() //npc를 랜덤으로추가
+    public void AddNPC(int i) //npc를 랜덤으로추가
     {
-        BaseCharacterData.Add_NPCData(GameDataTable.Instance.UserCharacterDIc , 1);
+        GameEventSystem.Send_AddNpc(i);
     }
 
    public void RandomAddNpc()//랜덤으로 더해주기

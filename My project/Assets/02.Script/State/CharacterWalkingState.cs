@@ -15,13 +15,14 @@ public class CharacterWalkingState : IState<BaseCharacter>
     public void Enter(BaseCharacter context)
     {
         Debug.Log("걷기 시작");
+        //나갈시 데이터 초기화
+        character.Init_CharacterData(character.Charaterdata);
     }
 
     public void Excute(BaseCharacter context)
     {
         Debug.Log("걷기 나감");
-        //나갈시 데이터 초기화
-        character.Init_CharacterData(character.Charaterdata);
+        
 
     }
 

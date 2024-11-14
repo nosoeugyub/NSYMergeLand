@@ -1,30 +1,86 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NpcManager : MonoBehaviour
 {
-    // NPC 프리팹 (미리 Unity 에디터에서 할당)
-    public GameObject npcPrefab;
+    public static NpcManager _instance;
+    public List<BaseCharacter> NPCLIST;
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        GameEventSystem.AddNpc_Event += AddNpc;
+    }
+
+    private void OnDestroy()
+    {
+        GameEventSystem.AddNpc_Event -= AddNpc;
+    }
+
+    private void AddNpc(int Id)
+    {
+        // Add_NPCData에서 NPC 데이터를 받아옵니다.
+        BaseCharacterData data = BaseCharacterData.Add_NPCData(GameDataTable.Instance.UserCharacterDIc, Id);
+
+        if (data == null)
+        {
+            Debug.LogWarning($"ID {Id}에 해당하는 NPC 데이터를 찾을 수 없습니다.");
+            return;
+        }
+
+        if (GameDataTable.Instance.CharacterDic.TryGetValue(data.Id, out BaseCharacterData characterData))
+        {
+            CreateNPC(characterData);
+        }
+        else
+        {
+            Debug.LogWarning($"ID {data.Id}에 해당하는 캐릭터 데이터가 CharacterDic에 없습니다.");
+        }
+    }
 
     // NPC 오브젝트 생성 함수
-    public  GameObject CreateNPC(BaseCharacterData characterData)
+    public void CreateNPC(BaseCharacterData characterData)
     {
-        // NPC 오브젝트 생성
-        GameObject npcObject = Instantiate(npcPrefab);
+        int id = characterData.Id;
 
-        // 생성된 NPC 오브젝트에 데이터를 설정 (이름, 위치 등)
-        npcObject.name = characterData.Name.ToString();  // 예: NPC의 이름을 UserId로 설정
+        // 인덱스 범위 체크
+        if (id < 0 || id >= NPCLIST.Count)
+        {
+            Debug.LogError($"ID {id}가 NPC 리스트 범위를 초과했습니다.");
+            return;
+        }
 
-        // NPC의 위치를 설정 (예시로 랜덤 위치)
-        Vector3 randomPosition = new Vector3(UnityEngine.Random.Range(-10f, 10f), 0f, UnityEngine.Random.Range(-10f, 10f));
-        npcObject.transform.position = randomPosition;
+        if (NPCLIST[id] == null)
+        {
+            Debug.LogWarning($"NPC 리스트의 ID {id} 위치에 오브젝트가 존재하지 않습니다.");
+            return;
+        }
 
-        // 필요한 컴포넌트나 애니메이션 추가 등 다른 설정을 할 수 있습니다.
-        // 예를 들어, NPC의 애니메이션 설정이나 UI 텍스트를 연결할 수 있습니다.
-        // npcObject.GetComponent<Animator>().Play("Idle");
-
-        // 이 NPC 오브젝트를 게임 씬에 배치합니다.
-        return npcObject;
+        // NPC 활성화 및 초기화
+        NPCLIST[id].gameObject.SetActive(true);
+        NPCLIST[id].Create_Initialize(characterData);
+        // 상태를 Idle로 설정
+        if (NPCLIST[id].stateManager == null)
+        {
+            Debug.LogError("StateManager is not initialized!");
+            return;
+        }
+        else
+        {
+            NPCLIST[id].stateManager.ChangeState(new CharacterIdleState(NPCLIST[id]), NPCLIST[id]);
+        }
+       
     }
 }

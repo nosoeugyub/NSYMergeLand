@@ -14,17 +14,19 @@ public class CharacterIdleState : IState<BaseCharacter>
 
     public void Enter(BaseCharacter context)
     {
+        //나갈시 데이터 초기화
+        context.Init_CharacterData(context.Charaterdata);
         Debug.Log("아이들 시작");
     }
 
     public void Excute(BaseCharacter context)
     {
-        Debug.Log("아이들 나감");
+        Debug.Log("아이들 중");
     }
 
 
     public void Exit(BaseCharacter context)
     {
-        Debug.Log("아이들 중");
+        Debug.Log("아이들 나감");
     }
 }
