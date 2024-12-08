@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7258903702340636600}
   - component: {fileID: 7258903702340636601}
-  - component: {fileID: 7258903702340636602}
   - component: {fileID: 7258903702340636599}
   m_Layer: 0
   m_Name: Player
@@ -73,20 +72,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &7258903702340636602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7258903702340636603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1afe35795f58eaf48bd98f26c831e46c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChararcterCtr: {fileID: 7258903702340636599}
-  animator: {fileID: 4760844351077099008}
 --- !u!143 &7258903702340636599
 CharacterController:
   m_ObjectHideFlags: 0
@@ -169,10 +154,5 @@ PrefabInstance:
 --- !u!4 &1509205474851814522 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8092133001476144777, guid: dd0d70099c0064c42bbbd471ede892a3, type: 3}
-  m_PrefabInstance: {fileID: 7258903702825501427}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4760844351077099008 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2786924167592584435, guid: dd0d70099c0064c42bbbd471ede892a3, type: 3}
   m_PrefabInstance: {fileID: 7258903702825501427}
   m_PrefabAsset: {fileID: 0}

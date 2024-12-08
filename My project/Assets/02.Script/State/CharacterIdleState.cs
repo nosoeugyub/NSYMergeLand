@@ -14,9 +14,13 @@ public class CharacterIdleState : IState<BaseCharacter>
 
     public void Enter(BaseCharacter context)
     {
+        if (context.Charaterdata == null)
+        {
+            context.Charaterdata = character.Charaterdata;
+        }
+
         //나갈시 데이터 초기화
         context.Init_CharacterData(context.Charaterdata);
-        Debug.Log("아이들 시작");
     }
 
     public void Excute(BaseCharacter context)
@@ -27,6 +31,5 @@ public class CharacterIdleState : IState<BaseCharacter>
 
     public void Exit(BaseCharacter context)
     {
-        Debug.Log("아이들 나감");
     }
 }

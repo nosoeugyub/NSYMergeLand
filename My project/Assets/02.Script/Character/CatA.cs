@@ -6,9 +6,6 @@ using UnityEngine;
 public class CatA : BaseCharacter
 {
 
-
-
-
     public override void UpdateNeeds()//실시간 욕구 증가 함수
     {
         base.UpdateNeeds();
@@ -16,6 +13,7 @@ public class CatA : BaseCharacter
 
     public override void CheckAndChargeState() //해당 욕구에 대한 해동 변환 함수
     {
+
 
 
     }

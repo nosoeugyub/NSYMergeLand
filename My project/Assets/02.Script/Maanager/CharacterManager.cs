@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NpcManager : MonoBehaviour
+public class CharacterManager : MonoBehaviour
 {
-    public static NpcManager _instance;
+    public static CharacterManager _instance;
     public List<BaseCharacter> NPCLIST;
+
+    [SerializeField] BaseCharacter Player;
 
     private void Awake()
     {
@@ -20,8 +22,45 @@ public class NpcManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        GameEventSystem.Game_Sequence_Event += SetGameCharacterState;
         GameEventSystem.AddNpc_Event += AddNpc;
+    }
+
+    private void SetGameCharacterState(Utill_Eum.GameSequence Gamesequence)
+    {
+        switch (Gamesequence)
+        {
+            case Utill_Eum.GameSequence.GameStart://GameStart in SetCharacter State
+                InitIdle_CharaterState(Player);
+                break;
+
+        }
+    }
+    private void InitIdle_CharaterState(BaseCharacter _Chatacter)
+    {
+        _Chatacter.stateManager.ChangeState(new CharacterIdleState(_Chatacter), _Chatacter);
+    }
+
+    private void SetCharaterState(BaseCharacter _Chatacter , Utill_Eum.StateType Type)
+    {
+        switch (Type)
+        {
+            case Utill_Eum.StateType.Idle:
+                _Chatacter.stateManager.ChangeState(new CharacterIdleState(_Chatacter), _Chatacter);
+                break;
+            case Utill_Eum.StateType.Walk:
+                _Chatacter.stateManager.ChangeState(new CharacterWalkingState(_Chatacter), _Chatacter);
+                break;
+            case Utill_Eum.StateType.Hungry:
+                _Chatacter.stateManager.ChangeState(new CharacterHurgryState(_Chatacter), _Chatacter);
+                break;
+            case Utill_Eum.StateType.Boring:
+                _Chatacter.stateManager.ChangeState(new CharacterBoringState(_Chatacter), _Chatacter);
+                break;
+            default:
+                break;
+        }
+
     }
 
     private void OnDestroy()
@@ -53,6 +92,11 @@ public class NpcManager : MonoBehaviour
     // NPC 오브젝트 생성 함수
     public void CreateNPC(BaseCharacterData characterData)
     {
+        if (NPCLIST.Count <= 0)
+        {
+            return;
+        }
+
         int id = characterData.Id;
 
         // 인덱스 범위 체크

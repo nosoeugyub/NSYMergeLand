@@ -13,7 +13,14 @@ public class Utill_Eum
         GameStart,
     }
 
+    public enum StateType
+    {
+        Idle,
+        Walk,
+        Hungry,
+        Boring
 
+    }
 
     public enum CharacterState
     {

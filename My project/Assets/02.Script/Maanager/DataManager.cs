@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
+
+    public PlayerAnimal _Player;
+
     private void Start()
     {
         GameEventSystem.Game_Sequence_Event += GameDataLoad;
@@ -16,6 +19,7 @@ public class DataManager : MonoBehaviour
         {
             case Utill_Eum.GameSequence.DataLoad:
                 DataLoad();
+                DataBinding();
                 break;
             case Utill_Eum.GameSequence.CreateData:
                 break;
@@ -28,6 +32,17 @@ public class DataManager : MonoBehaviour
             default:
                 break;
         }
+    }
+    ////////////////
+    /// Data bind
+    ////////////////
+    ///
+    private void DataBinding()
+    {
+        UserData.Init_UserCharacterData(GameDataTable.Instance.UserData, GameDataTable.Instance.CharacterDic[1]);
+
+
+        _Player.Charaterdata = GameDataTable.Instance.UserData.UserCharacterData;
     }
 
 

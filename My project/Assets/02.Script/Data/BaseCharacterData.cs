@@ -48,7 +48,42 @@ public class BaseCharacterData
     //선호성별 (남. 여)
     //특성 (후각이 예민함 , 힘이 썜 )=> 채집확률 높아짐 : (* 가중치테이블로 곱해서 관리해야함)
 
-    
+
+    public BaseCharacterData() { }
+
+    public BaseCharacterData( // 스텟 생성자
+        int name,
+        int id,
+        int discription,
+        Utill_Eum.WeatherType likeWeatherType,
+        Utill_Eum.AnimalGenderType myGenderType,
+        int level,
+        float exp,
+        float workLevel,
+        float tiredRange,
+        float digRange,
+        float boringRange,
+        float walkingRange,
+        float defalutRage,
+        float hurgryRage
+    )
+    {
+        Name = name;
+        Id = id;
+        Discription = discription;
+        LikeWeatherType = likeWeatherType;
+        MyGenderType = myGenderType;
+        Level = level;
+        Exp = exp;
+        WorkLevel = workLevel;
+        TiredRange = tiredRange;
+        DigRange = digRange;
+        BoringRange = boringRange;
+        WalkingRange = walkingRange;
+        DefalutRage = defalutRage;
+        HurgryRage = hurgryRage;
+    }
+
     public static Utill_Eum.CharacterState Get_NPCState(BaseCharacterData data)//Get NPC STATE LOGS
     {
         if (data.BoringRange >= 100)

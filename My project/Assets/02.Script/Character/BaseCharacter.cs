@@ -100,7 +100,7 @@ public abstract class BaseCharacter: MonoBehaviour
         stateManager.Enter(this);
     }
 
-    public void Update()
+    public virtual void Update()
     {
         if (IsActivaityInProgress = true && Charaterdata != null)
         {
@@ -113,6 +113,11 @@ public abstract class BaseCharacter: MonoBehaviour
 
     public void Init_CharacterData(BaseCharacterData Charaterdata)//Enter에서 주롯 사용
     {
+        if (Charaterdata == null)
+        {
+            return;
+        }
+
         BaseCharacterData.Init_CharacterData(Charaterdata);
         IsActivaityInProgress = true;
     }
